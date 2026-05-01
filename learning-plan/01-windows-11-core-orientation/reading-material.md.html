@@ -1,0 +1,308 @@
+<h1 id="reading-material-windows-11-core-orientation">Reading Material:
+Windows 11 Core Orientation</h1>
+<h2 id="windows-11-interface-navigation">1. Windows 11 Interface &amp;
+Navigation</h2>
+<h3 id="settings-app-vs.-control-panel">Settings App vs. Control
+Panel</h3>
+<p>Windows 11 has two parallel configuration interfaces. The Settings
+app (<code>Win + I</code>) is the modern interface covering most common
+settings. Control Panel (<code>control</code> from Run dialog) is the
+legacy interface, still containing deeper configuration options not yet
+migrated. Microsoft is slowly moving everything to Settings, but as a
+supporter you need to know both exist and where settings live in
+each.</p>
+<p>Key Settings categories: - <strong>System</strong>: Display, sound,
+notifications, power, storage, about - <strong>Bluetooth &amp;
+devices</strong>: Printers, USB, mouse, keyboard - <strong>Network &amp;
+internet</strong>: Wi-Fi, Ethernet, proxy, advanced network settings -
+<strong>Personalization</strong>: Themes, taskbar, start menu, colors -
+<strong>Apps</strong>: Installed apps, default apps, startup apps -
+<strong>Accounts</strong>: Your info, sign-in options, email &amp;
+accounts, access work/school - <strong>Time &amp; language</strong>:
+Region, language, typing, date &amp; time - <strong>Gaming</strong>:
+Game bar, game mode, captures - <strong>Accessibility</strong>: Display,
+audio, interaction, keyboard, mouse - <strong>Privacy &amp;
+security</strong>: Location, camera, microphone, Windows Security -
+<strong>Windows Update</strong>: Check for updates, update history,
+advanced options</p>
+<h3 id="right-click-context-menu">Right-Click Context Menu</h3>
+<p>Windows 11 introduced a simplified context menu. Many advanced
+options are hidden behind “Show more options” or
+<code>Shift + right-click</code>. This is relevant for support when you
+need to “Run as administrator,” access file properties, or use
+command-line tools from the context menu.</p>
+<h2 id="file-explorer-file-system-structure">2. File Explorer &amp; File
+System Structure</h2>
+<h3 id="path-structure">Path Structure</h3>
+<pre><code>C:\
+├── Windows\           # OS files (like /usr, /etc combined)
+├── Program Files\     # 64-bit applications
+├── Program Files (x86)\  # 32-bit applications
+├── Users\
+│   └── &lt;username&gt;\
+│       ├── Desktop\
+│       ├── Documents\
+│       ├── Downloads\
+│       ├── AppData\           # Hidden by default
+│       │   ├── Local\         # Per-user app data, caches (like ~/.local/share, ~/.cache)
+│       │   ├── Roaming\       # Synced settings (no direct Linux equivalent)
+│       │   └── LocalLow\      # Low-integrity app data (sandboxed apps)
+│       └── OneDrive\          # If OneDrive Known Folder Move is enabled
+└── ProgramData\       # Hidden, system-wide app data (like /etc for app configs)</code></pre>
+<h3 id="special-folders-environment-variables">Special Folders
+(Environment Variables)</h3>
+<ul>
+<li><code>%USERPROFILE%</code> — C:&lt;username&gt;</li>
+<li><code>%APPDATA%</code> — C:&lt;username&gt;</li>
+<li><code>%LOCALAPPDATA%</code> — C:&lt;username&gt;</li>
+<li><code>%PROGRAMDATA%</code> — C:</li>
+<li><code>%WINDIR%</code> or <code>%SYSTEMROOT%</code> — C:</li>
+<li><code>%TEMP%</code> — Current user’s temp folder</li>
+<li><code>%PROGRAMFILES%</code> — C:Files</li>
+</ul>
+<h3 id="hidden-files-and-extensions">Hidden Files and Extensions</h3>
+<p>By default, Windows hides: - Hidden files/folders (those with the
+hidden attribute) - Known file extensions (.txt, .docx, .pdf, etc.) -
+Protected operating system files</p>
+<p>Support tip: Always enable “Show file name extensions” and “Show
+hidden files” when troubleshooting. Users often don’t realize
+<code>document.docx</code> is actually <code>document.docx.txt</code> or
+that a <code>.lnk</code> shortcut is not the actual file.</p>
+<h2 id="task-manager">3. Task Manager</h2>
+<p>Access: <code>Ctrl + Shift + Esc</code> or right-click Start button
+&gt; Task Manager</p>
+<h3 id="tabs">Tabs:</h3>
+<ul>
+<li><strong>Processes</strong>: Running apps and background processes
+with CPU, memory, disk, network, GPU usage. Right-click &gt; Go to
+details for PID. Right-click &gt; Open file location to find the
+binary.</li>
+<li><strong>Performance</strong>: Real-time graphs for CPU, memory,
+disk, network, GPU. Shows utilization, capacity, and hardware
+details.</li>
+<li><strong>App history</strong>: Resource usage by app over time
+(useful for identifying long-running resource hogs).</li>
+<li><strong>Startup apps</strong>: Programs that launch at login.
+Enable/disable to improve boot time. This is your equivalent of managing
+<code>~/.config/autostart/</code> or systemd user services.</li>
+<li><strong>Users</strong>: Resource usage per logged-in user (useful on
+shared/RDS systems).</li>
+<li><strong>Details</strong>: Full process list with PIDs, status, CPU,
+memory, description. Your equivalent of <code>ps aux</code>. Right-click
+&gt; Set priority or Set affinity.</li>
+<li><strong>Services</strong>: Lists Windows services with status. Click
+“Open Services” to get the full <code>services.msc</code> console.</li>
+</ul>
+<h3 id="key-concepts">Key concepts:</h3>
+<ul>
+<li><strong>Processes vs. Apps</strong>: Apps are the user-facing
+applications. Processes include background services and system
+processes.</li>
+<li><strong>Background processes</strong>: Apps running without a
+visible window (updaters, sync clients, services).</li>
+<li><strong>Windows processes</strong>: Core OS processes. Do not kill
+these.</li>
+<li><strong>End task vs. End process tree</strong>: End task kills the
+process; end process tree kills it and all child processes.</li>
+</ul>
+<h2 id="event-viewer">4. Event Viewer</h2>
+<p>Access: <code>eventvwr.msc</code> or search “Event Viewer”</p>
+<h3 id="key-log-locations">Key Log Locations:</h3>
+<ul>
+<li><strong>Windows Logs</strong>:
+<ul>
+<li><strong>Application</strong>: App crashes, warnings, info from
+installed software</li>
+<li><strong>Security</strong>: Audit events, login attempts (if auditing
+enabled)</li>
+<li><strong>System</strong>: Driver events, service start/stop, hardware
+events, Windows Update</li>
+<li><strong>Setup</strong>: Installation and setup events</li>
+</ul></li>
+<li><strong>Applications and Services Logs</strong>: Product-specific
+logs. Expand <code>Microsoft</code> to find logs for Windows Update,
+OneDrive, Office, etc.</li>
+</ul>
+<h3 id="event-levels">Event Levels:</h3>
+<ul>
+<li><strong>Critical</strong>: System unusable, data loss risk</li>
+<li><strong>Error</strong>: Functionality broken, feature not
+working</li>
+<li><strong>Warning</strong>: Something may become a problem</li>
+<li><strong>Information</strong>: Normal operation (often too noisy for
+troubleshooting)</li>
+<li><strong>Verbose</strong>: Detailed debug info (must be enabled
+explicitly)</li>
+</ul>
+<h3 id="filtering">Filtering:</h3>
+<p>Right-click a log &gt; Filter Current Log. Filter by level, event ID,
+source, or date range. This is essential for cutting through noise when
+troubleshooting.</p>
+<h2 id="windows-services">5. Windows Services</h2>
+<p>Access: <code>services.msc</code> or Task Manager &gt; Services tab
+&gt; Open Services</p>
+<p>Services are background processes managed by the Service Control
+Manager (SCM). They are your closest equivalent to systemd units.</p>
+<h3 id="service-properties">Service Properties:</h3>
+<ul>
+<li><strong>Status</strong>: Running, Stopped, Starting, Stopping</li>
+<li><strong>Startup type</strong>:
+<ul>
+<li><strong>Automatic</strong>: Starts at boot</li>
+<li><strong>Automatic (Delayed Start)</strong>: Starts after boot,
+reduces boot-time contention</li>
+<li><strong>Manual</strong>: Starts on demand (when an app requests
+it)</li>
+<li><strong>Disabled</strong>: Cannot start</li>
+</ul></li>
+<li><strong>Log On As</strong>: Which account the service runs under
+(Local System, Network Service, specific user)</li>
+<li><strong>Dependencies</strong>: Other services this service requires,
+or services that require this one</li>
+</ul>
+<h3 id="common-services-to-know">Common Services to Know:</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Service</th>
+<th>Name</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Windows Update</td>
+<td><code>wuauserv</code></td>
+<td>Downloads and installs updates</td>
+</tr>
+<tr class="even">
+<td>Print Spooler</td>
+<td><code>spooler</code></td>
+<td>Manages print jobs</td>
+</tr>
+<tr class="odd">
+<td>DHCP Client</td>
+<td><code>dhcpc</code></td>
+<td>Obtains IP addresses</td>
+</tr>
+<tr class="even">
+<td>DNS Client</td>
+<td><code>Dnscache</code></td>
+<td>Caches DNS lookups</td>
+</tr>
+<tr class="odd">
+<td>Windows Defender</td>
+<td><code>WinDefend</code></td>
+<td>Antivirus service</td>
+</tr>
+<tr class="even">
+<td>Cryptographic Services</td>
+<td><code>CryptSvc</code></td>
+<td>Certificate management</td>
+</tr>
+<tr class="odd">
+<td>Plug and Play</td>
+<td><code>PlugPlay</code></td>
+<td>Hardware detection</td>
+</tr>
+<tr class="even">
+<td>Windows Installer</td>
+<td><code>msiserver</code></td>
+<td>MSI package installation</td>
+</tr>
+</tbody>
+</table>
+<h3 id="managing-from-command-line">Managing from Command Line:</h3>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode cmd"><code class="sourceCode dosbat"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>net start <span class="kw">&lt;</span>service_name<span class="kw">&gt;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>net stop <span class="kw">&lt;</span>service_name<span class="kw">&gt;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>sc query <span class="kw">&lt;</span>service_name<span class="kw">&gt;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>sc config <span class="kw">&lt;</span>service_name<span class="kw">&gt;</span> start= auto</span></code></pre></div>
+<p>Or PowerShell:</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Get-Service</span> <span class="op">-</span>Name <span class="op">&lt;</span>service_name<span class="op">&gt;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">Start-Service</span> <span class="op">-</span>Name <span class="op">&lt;</span>service_name<span class="op">&gt;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">Stop-Service</span> <span class="op">-</span>Name <span class="op">&lt;</span>service_name<span class="op">&gt;</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">Set-Service</span> <span class="op">-</span>Name <span class="op">&lt;</span>service_name<span class="op">&gt;</span> <span class="op">-</span>StartupType Automatic</span></code></pre></div>
+<h2 id="user-account-control-uac">6. User Account Control (UAC)</h2>
+<p>UAC is the prompt that asks “Do you want to allow this app to make
+changes to your device?” It is Windows’ mechanism for privilege
+separation.</p>
+<h3 id="how-it-works">How it works:</h3>
+<ul>
+<li>Users get two tokens at login: a standard user token and an elevated
+(admin) token</li>
+<li>By default, processes run with the standard token</li>
+<li>When elevation is needed, UAC prompts for consent</li>
+<li>Processes marked as “requireAdministrator” in their manifest always
+trigger UAC</li>
+</ul>
+<h3 id="uac-levels">UAC Levels:</h3>
+<ol type="1">
+<li><strong>Always notify</strong> — Prompt for everything (most
+secure)</li>
+<li><strong>Notify only when apps try to make changes</strong> —
+Default</li>
+<li><strong>Notify only when apps try to make changes (do not dim
+desktop)</strong> — Less secure</li>
+<li><strong>Never notify</strong> — UAC effectively disabled
+(dangerous)</li>
+</ol>
+<h3 id="support-relevance">Support relevance:</h3>
+<ul>
+<li>“Run as administrator” bypasses the standard token check for a
+single launch</li>
+<li>If UAC is set too high, legitimate admin tasks become tedious</li>
+<li>If UAC is disabled, malware can run without restriction</li>
+<li>Some installers silently fail if they can’t elevate</li>
+<li>Group Policy can enforce UAC settings</li>
+</ul>
+<h2 id="user-context-privileges">7. User Context &amp; Privileges</h2>
+<h3 id="whoami-all"><code>whoami /all</code></h3>
+<p>This command shows everything about your current security context.
+The output has several sections:</p>
+<ul>
+<li><strong>User name</strong>: Current user SID and display name</li>
+<li><strong>Group names</strong>: Security groups the user belongs to
+(determines access rights)</li>
+<li><strong>Privileges</strong>: Specific permissions granted (backup
+files, debug programs, etc.)</li>
+<li><strong>Mandatory label</strong>: Integrity level (Low, Medium,
+High, System)</li>
+</ul>
+<h3 id="integrity-levels">Integrity Levels:</h3>
+<ul>
+<li><strong>Low</strong>: Sandboxed processes (browser protected
+mode)</li>
+<li><strong>Medium</strong>: Standard user processes (default)</li>
+<li><strong>High</strong>: Elevated/administrator processes</li>
+<li><strong>System</strong>: OS-level processes</li>
+</ul>
+<p>This is somewhat similar to Linux’s user/group/other model combined
+with capabilities, but with an additional mandatory integrity control
+layer.</p>
+<h2 id="environment-variables">8. Environment Variables</h2>
+<p>Windows has two scopes for environment variables: - <strong>User
+variables</strong>: Apply only to the current user (stored in registry
+under HKCU) - <strong>System variables</strong>: Apply to all users
+(stored in registry under HKLM)</p>
+<h3 id="viewing-and-editing">Viewing and Editing:</h3>
+<ul>
+<li>GUI: Settings &gt; System &gt; About &gt; Advanced system settings
+&gt; Environment Variables</li>
+<li>Command line: <code>set</code> (shows current session),
+<code>setx</code> (persists)</li>
+<li>PowerShell: <code>$env:VARIABLE_NAME</code>,
+<code>[Environment]::GetEnvironmentVariable("NAME", "Machine")</code></li>
+</ul>
+<h3 id="common-gotchas">Common Gotchas:</h3>
+<ul>
+<li><code>PATH</code> is merged from both User and System scopes</li>
+<li>Changes to environment variables don’t affect already-running
+processes</li>
+<li><code>setx</code> truncates values over 1024 characters</li>
+<li>Some applications read environment variables at startup only and
+need a restart to pick up changes</li>
+<li>Case-insensitive: <code>PATH</code>, <code>Path</code>, and
+<code>path</code> all refer to the same variable</li>
+</ul>

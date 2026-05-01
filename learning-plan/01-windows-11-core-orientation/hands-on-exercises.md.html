@@ -1,0 +1,259 @@
+<h1 id="hands-on-exercises-windows-11-core-orientation">Hands-On
+Exercises: Windows 11 Core Orientation</h1>
+<p>Perform all exercises in a Windows 11 VM. Do not run these on your
+production machine.</p>
+<hr />
+<h2 id="exercise-1-navigate-both-settings-interfaces">Exercise 1:
+Navigate Both Settings Interfaces</h2>
+<p><strong>Objective:</strong> Understand the split between Settings app
+and Control Panel.</p>
+<ol type="1">
+<li>Open Settings (<code>Win + I</code>) and browse through each
+category</li>
+<li>Open Control Panel (<code>Win + R</code> &gt; type
+<code>control</code> &gt; Enter)</li>
+<li>Find the following settings in <strong>both</strong> interfaces and
+note where they live:
+<ul>
+<li>Display resolution</li>
+<li>Add/remove programs</li>
+<li>Network adapter properties</li>
+<li>User accounts</li>
+<li>Power options</li>
+</ul></li>
+<li>Note which settings exist only in one interface or the other</li>
+</ol>
+<p><strong>Expected outcome:</strong> You can confidently navigate both
+interfaces and know which to use for a given task.</p>
+<hr />
+<h2 id="exercise-2-file-explorer-deep-dive">Exercise 2: File Explorer
+Deep Dive</h2>
+<p><strong>Objective:</strong> Master File Explorer and understand the
+file system.</p>
+<ol type="1">
+<li><p>Enable viewing of hidden files and file extensions:</p>
+<ul>
+<li>Open File Explorer &gt; View &gt; Show &gt; check “Hidden items” and
+“File name extensions”</li>
+</ul></li>
+<li><p>Navigate to <code>%APPDATA%</code>, <code>%LOCALAPPDATA%</code>,
+and <code>%PROGRAMDATA%</code>. List the contents of each.</p></li>
+<li><p>Create the following folder structure in your user profile:</p>
+<pre><code>%USERPROFILE%\test-exercise\
+├── folder-a\
+│   └── file-a.txt
+├── folder-b\
+└── file-root.txt</code></pre></li>
+<li><p>Right-click <code>file-a.txt</code> &gt; Properties. Note the
+attributes tab. Check “Hidden” and observe what happens in
+Explorer.</p></li>
+<li><p>Right-click <code>file-root.txt</code> &gt; Properties &gt;
+Security tab. Examine the permission entries.</p></li>
+<li><p>Open a Command Prompt and navigate to <code>C:\</code>. Try to
+<code>dir</code> inside <code>C:\Windows\System32\config</code>. Note
+the access denied error.</p></li>
+<li><p>In PowerShell, run
+<code>Get-ChildItem $env:LOCALAPPDATA -Force | Select-Object Name, Length</code>
+and observe the output.</p></li>
+</ol>
+<hr />
+<h2 id="exercise-3-task-investigation-via-task-manager">Exercise 3: Task
+Investigation via Task Manager</h2>
+<p><strong>Objective:</strong> Learn to identify and manage
+processes.</p>
+<ol type="1">
+<li>Open Task Manager (<code>Ctrl + Shift + Esc</code>)</li>
+<li>Click “More details” if in compact mode</li>
+<li>On the Processes tab, sort by CPU, then by Memory. Identify the top
+3 resource consumers.</li>
+<li>Right-click any process &gt; “Go to details” and note the PID.</li>
+<li>Right-click the same process in Details tab &gt; “Open file
+location”. Note where the binary lives.</li>
+<li>Go to the Startup apps tab. Identify 3 enabled startup items and
+what they do.</li>
+<li>Go to the Performance tab. Note your CPU, memory, disk, and network
+utilization.</li>
+<li>Find a non-critical background process and “End task” it. Observe
+what happens (pick something like OneDrive or a browser updater — not a
+Windows system process).</li>
+</ol>
+<p><strong>Expected outcome:</strong> You can quickly identify
+resource-hogging processes and understand what processes do.</p>
+<hr />
+<h2 id="exercise-4-event-viewer-investigation">Exercise 4: Event Viewer
+Investigation</h2>
+<p><strong>Objective:</strong> Find and interpret log entries.</p>
+<ol type="1">
+<li>Open Event Viewer (<code>eventvwr.msc</code>)</li>
+<li>Navigate to Windows Logs &gt; Application</li>
+<li>Filter the log to show only “Error” and “Critical” level events from
+the last 7 days</li>
+<li>Double-click an error event and examine:
+<ul>
+<li>Event ID</li>
+<li>Source</li>
+<li>Date and time</li>
+<li>General description</li>
+<li>Details tab (XML view)</li>
+</ul></li>
+<li>Navigate to Windows Logs &gt; System. Find Event ID 7036 (service
+state changes). Notice how noisy it is.</li>
+<li>Create a Custom View:
+<ul>
+<li>Right-click “Custom Views” &gt; Create Custom View</li>
+<li>Filter for Event ID 1000 (Application Error) and 1002 (Application
+Hang)</li>
+<li>Save it as “App Crashes and Hangs”</li>
+</ul></li>
+<li>Navigate to Applications and Services Logs &gt; Microsoft &gt;
+Windows. Expand and find at least 3 product-specific log channels.</li>
+</ol>
+<hr />
+<h2 id="exercise-5-service-manipulation">Exercise 5: Service
+Manipulation</h2>
+<p><strong>Objective:</strong> Understand and manage Windows
+services.</p>
+<ol type="1">
+<li><p>Open Services (<code>services.msc</code>)</p></li>
+<li><p>Find the “Print Spooler” service. Note its status, startup type,
+and Log On As account.</p></li>
+<li><p>Right-click Print Spooler &gt; Properties. Examine the
+Dependencies tab. Note which services it depends on and which depend on
+it.</p></li>
+<li><p>Stop the Print Spooler service. Verify it stopped.</p></li>
+<li><p>Try to add a printer. Observe the error.</p></li>
+<li><p>Start the Print Spooler again.</p></li>
+<li><p>Change the startup type to “Manual” (don’t leave it this way —
+change it back to Automatic afterward).</p></li>
+<li><p>From an elevated Command Prompt, run:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode cmd"><code class="sourceCode dosbat"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>sc query spooler</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>net stop spooler</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>net start spooler</span></code></pre></div></li>
+<li><p>From an elevated PowerShell, run:</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Get-Service</span> <span class="op">-</span>Name spooler <span class="op">|</span> <span class="fu">Format-List</span> <span class="op">*</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">Restart-Service</span> <span class="op">-</span>Name spooler</span></code></pre></div></li>
+</ol>
+<hr />
+<h2 id="exercise-6-uac-and-permission-experimentation">Exercise 6: UAC
+and Permission Experimentation</h2>
+<p><strong>Objective:</strong> Experience how UAC and permissions
+work.</p>
+<ol type="1">
+<li>Create a file on your Desktop: <code>test-file.txt</code></li>
+<li>Right-click &gt; Properties &gt; Security &gt; Advanced</li>
+<li>Click “Disable inheritance” &gt; “Convert inherited permissions into
+explicit permissions”</li>
+<li>Remove your user account from the permission list. Apply and
+close.</li>
+<li>Try to open the file. Note the error.</li>
+<li>Right-click &gt; Properties &gt; Security &gt; Advanced &gt; Owner
+&gt; Change &gt; type your username &gt; OK</li>
+<li>Grant yourself Full Control again.</li>
+<li>Create a text file called <code>test-script.bat</code> on Desktop
+with content: <code>echo Hello World</code>. Try to run it. Note the UAC
+behavior.</li>
+<li>Right-click the same file &gt; “Run as administrator”. Note the UAC
+prompt.</li>
+</ol>
+<hr />
+<h2 id="exercise-7-user-context-exploration">Exercise 7: User Context
+Exploration</h2>
+<p><strong>Objective:</strong> Understand your security context.</p>
+<ol type="1">
+<li><p>Open Command Prompt (not elevated). Run:</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode cmd"><code class="sourceCode dosbat"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>whoami <span class="at">/all</span></span></code></pre></div></li>
+<li><p>Examine the output:</p>
+<ul>
+<li>What is your SID?</li>
+<li>What groups are you in?</li>
+<li>What privileges do you have?</li>
+<li>What is your Mandatory Label (integrity level)?</li>
+</ul></li>
+<li><p>Open an elevated Command Prompt (right-click &gt; Run as
+administrator). Run <code>whoami /all</code> again.</p></li>
+<li><p>Compare the two outputs. Note the differences in:</p>
+<ul>
+<li>Mandatory Label (should change from Medium to High)</li>
+<li>Enabled privileges (more privileges in elevated context)</li>
+</ul></li>
+<li><p>Run <code>whoami /user</code> in both contexts. Note the SID is
+the same — same user, different token.</p></li>
+<li><p>In PowerShell, run:</p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="op">[</span>Security<span class="op">.</span><span class="fu">Principal</span><span class="op">.</span><span class="fu">WindowsIdentity</span><span class="op">]::</span>GetCurrent<span class="op">()</span> <span class="op">|</span> <span class="fu">Format-List</span> <span class="op">*</span></span></code></pre></div></li>
+</ol>
+<hr />
+<h2 id="exercise-8-environment-variable-investigation">Exercise 8:
+Environment Variable Investigation</h2>
+<p><strong>Objective:</strong> Understand environment variable scope and
+behavior.</p>
+<ol type="1">
+<li>Open Command Prompt. Run <code>echo %PATH%</code>. Note the
+output.</li>
+<li>Open Settings &gt; System &gt; About &gt; Advanced system settings
+&gt; Environment Variables.</li>
+<li>In the User variables section, find or create a variable called
+<code>MYTEST</code> with value <code>hello-from-user</code>.</li>
+<li>In the System variables section, find or create a variable called
+<code>MYTEST</code> with value <code>hello-from-system</code>.</li>
+<li>Open a <strong>new</strong> Command Prompt. Run
+<code>echo %MYTEST%</code>. Note which value wins (user scope wins for
+CMD).</li>
+<li>Now check PATH: observe how it combines both user and system PATH
+entries.</li>
+<li>In CMD, run <code>setx MYTEST "new-value"</code>. Close CMD. Open a
+new CMD and check <code>echo %MYTEST%</code>.</li>
+<li>Try to set a PATH value longer than 1024 characters with
+<code>setx</code>. Observe the truncation warning.</li>
+</ol>
+<hr />
+<h2 id="exercise-9-registry-exploration">Exercise 9: Registry
+Exploration</h2>
+<p><strong>Objective:</strong> Familiarize yourself with the Registry
+Editor.</p>
+<ol type="1">
+<li>Open Registry Editor (<code>regedit</code>). Accept UAC prompt.</li>
+<li>Navigate to
+<code>HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run</code>.
+This lists programs that start with your user session.</li>
+<li>Navigate to
+<code>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall</code>.
+This lists installed programs (some may be under
+<code>WOW6432Node</code> for 32-bit).</li>
+<li>Navigate to
+<code>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services</code>. Find
+the <code>spooler</code> subkey. Examine its values, especially
+<code>Start</code> (2 = Automatic, 3 = Manual, 4 = Disabled).</li>
+<li>Navigate to
+<code>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion</code>.
+Note the <code>ProductName</code>, <code>CurrentBuild</code>, and
+<code>ReleaseId</code>.</li>
+<li><strong>Do not modify any registry values.</strong> The purpose is
+to understand the structure.</li>
+</ol>
+<hr />
+<h2 id="exercise-10-system-information-gathering">Exercise 10: System
+Information Gathering</h2>
+<p><strong>Objective:</strong> Learn to quickly gather system
+details.</p>
+<p>Run each of these commands and note what information they
+provide:</p>
+<ol type="1">
+<li><code>winver</code> — Quick OS version dialog</li>
+<li><code>msinfo32</code> — Full system information (hardware, drivers,
+conflicts)</li>
+<li><code>dxdiag</code> — Display and audio diagnostics</li>
+<li><code>systeminfo</code> (CMD) — Detailed system summary</li>
+<li>PowerShell: <code>Get-ComputerInfo</code> — Comprehensive system
+info</li>
+<li>PowerShell:
+<code>Get-CimInstance Win32_OperatingSystem | Select-Object *</code> —
+OS details</li>
+<li>PowerShell: <code>Get-LocalUser</code> — Local user accounts</li>
+<li>PowerShell: <code>Get-LocalGroup</code> — Local groups</li>
+</ol>
+<p>Save the output of at least three of these commands to files for
+future reference.</p>

@@ -1,0 +1,614 @@
+<h1 id="reference-material-windows-11-core-orientation">Reference
+Material: Windows 11 Core Orientation</h1>
+<h2 id="quick-reference-essential-gui-tools">Quick Reference: Essential
+GUI Tools</h2>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Tool</th>
+<th>How to Open</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Settings</td>
+<td><code>Win + I</code></td>
+<td>Modern settings interface</td>
+</tr>
+<tr class="even">
+<td>Control Panel</td>
+<td><code>control</code> (Run dialog)</td>
+<td>Legacy settings</td>
+</tr>
+<tr class="odd">
+<td>Task Manager</td>
+<td><code>Ctrl + Shift + Esc</code></td>
+<td>Process management, performance</td>
+</tr>
+<tr class="even">
+<td>Event Viewer</td>
+<td><code>eventvwr.msc</code></td>
+<td>System and application logs</td>
+</tr>
+<tr class="odd">
+<td>Services</td>
+<td><code>services.msc</code></td>
+<td>Manage background services</td>
+</tr>
+<tr class="even">
+<td>Registry Editor</td>
+<td><code>regedit</code></td>
+<td>Windows registry (use with caution)</td>
+</tr>
+<tr class="odd">
+<td>Local Users and Groups</td>
+<td><code>lusrmgr.msc</code></td>
+<td>Manage local accounts/groups</td>
+</tr>
+<tr class="even">
+<td>Computer Management</td>
+<td><code>compmgmt.msc</code></td>
+<td>Aggregate admin console</td>
+</tr>
+<tr class="odd">
+<td>Group Policy Editor</td>
+<td><code>gpedit.msc</code></td>
+<td>Local policy management (Pro+ only)</td>
+</tr>
+<tr class="even">
+<td>Disk Management</td>
+<td><code>diskmgmt.msc</code></td>
+<td>Partition and volume management</td>
+</tr>
+<tr class="odd">
+<td>Device Manager</td>
+<td><code>devmgmt.msc</code></td>
+<td>Hardware and drivers</td>
+</tr>
+<tr class="even">
+<td>System Configuration</td>
+<td><code>msconfig</code></td>
+<td>Boot options, services, startup</td>
+</tr>
+<tr class="odd">
+<td>System Information</td>
+<td><code>msinfo32</code></td>
+<td>Detailed system hardware/software info</td>
+</tr>
+<tr class="even">
+<td>DirectX Diagnostic Tool</td>
+<td><code>dxdiag</code></td>
+<td>Display and audio driver info</td>
+</tr>
+<tr class="odd">
+<td>Resource Monitor</td>
+<td><code>resmon</code> (from Task Manager &gt; Performance)</td>
+<td>Detailed resource usage</td>
+</tr>
+<tr class="even">
+<td>Performance Monitor</td>
+<td><code>perfmon</code></td>
+<td>Performance counters and logging</td>
+</tr>
+</tbody>
+</table>
+<h2 id="file-system-quick-reference">File System Quick Reference</h2>
+<h3 id="known-folders-and-paths">Known Folders and Paths</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Folder</th>
+<th>Path</th>
+<th>Environment Variable</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>User Profile</td>
+<td><code>C:\Users\&lt;username&gt;</code></td>
+<td><code>%USERPROFILE%</code></td>
+</tr>
+<tr class="even">
+<td>Desktop</td>
+<td><code>C:\Users\&lt;username&gt;\Desktop</code></td>
+<td><code>%USERPROFILE%\Desktop</code></td>
+</tr>
+<tr class="odd">
+<td>Documents</td>
+<td><code>C:\Users\&lt;username&gt;\Documents</code></td>
+<td><code>%USERPROFILE%\Documents</code></td>
+</tr>
+<tr class="even">
+<td>Downloads</td>
+<td><code>C:\Users\&lt;username&gt;\Downloads</code></td>
+<td><code>%USERPROFILE%\Downloads</code></td>
+</tr>
+<tr class="odd">
+<td>AppData Roaming</td>
+<td><code>C:\Users\&lt;username&gt;\AppData\Roaming</code></td>
+<td><code>%APPDATA%</code></td>
+</tr>
+<tr class="even">
+<td>AppData Local</td>
+<td><code>C:\Users\&lt;username&gt;\AppData\Local</code></td>
+<td><code>%LOCALAPPDATA%</code></td>
+</tr>
+<tr class="odd">
+<td>Program Files (64-bit)</td>
+<td><code>C:\Program Files</code></td>
+<td><code>%PROGRAMFILES%</code></td>
+</tr>
+<tr class="even">
+<td>Program Files (32-bit)</td>
+<td><code>C:\Program Files (x86)</code></td>
+<td><code>%PROGRAMFILES(x86)%</code></td>
+</tr>
+<tr class="odd">
+<td>ProgramData</td>
+<td><code>C:\ProgramData</code></td>
+<td><code>%PROGRAMDATA%</code></td>
+</tr>
+<tr class="even">
+<td>Windows</td>
+<td><code>C:\Windows</code></td>
+<td><code>%WINDIR%</code>, <code>%SYSTEMROOT%</code></td>
+</tr>
+<tr class="odd">
+<td>Temp (User)</td>
+<td><code>C:\Users\&lt;username&gt;\AppData\Local\Temp</code></td>
+<td><code>%TEMP%</code></td>
+</tr>
+<tr class="even">
+<td>Temp (System)</td>
+<td><code>C:\Windows\Temp</code></td>
+<td>N/A</td>
+</tr>
+</tbody>
+</table>
+<h3 id="file-attributes-vs.-linux-permissions">File Attributes
+(vs. Linux permissions)</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Windows Attribute</th>
+<th>Effect</th>
+<th>Linux Rough Equivalent</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Hidden</td>
+<td>Not shown in Explorer by default</td>
+<td>Dot-prefix (.)</td>
+</tr>
+<tr class="even">
+<td>Read-only</td>
+<td>Cannot be modified (not enforced by all apps)</td>
+<td><code>chmod -w</code></td>
+</tr>
+<tr class="odd">
+<td>System</td>
+<td>OS file, extra protection</td>
+<td>N/A</td>
+</tr>
+<tr class="even">
+<td>Archive</td>
+<td>File has been modified since backup</td>
+<td>N/A</td>
+</tr>
+<tr class="odd">
+<td>Encrypted (EFS)</td>
+<td>Encrypted with user’s certificate</td>
+<td>LUKS/ecryptfs</td>
+</tr>
+<tr class="even">
+<td>Compressed</td>
+<td>NTFS transparent compression</td>
+<td>gzip/btrfs compression</td>
+</tr>
+</tbody>
+</table>
+<h2 id="event-viewer-critical-event-ids">Event Viewer: Critical Event
+IDs</h2>
+<h3 id="system-log">System Log</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Event ID</th>
+<th>Source</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1074</td>
+<td>User32</td>
+<td>System shutdown/restart (shows who initiated and why)</td>
+</tr>
+<tr class="even">
+<td>41</td>
+<td>Kernel-Power</td>
+<td>Unexpected shutdown (power loss, crash)</td>
+</tr>
+<tr class="odd">
+<td>1001</td>
+<td>BugCheck</td>
+<td>BSOD occurred (includes bugcheck code)</td>
+</tr>
+<tr class="even">
+<td>7036</td>
+<td>Service Control Manager</td>
+<td>Service state changed</td>
+</tr>
+<tr class="odd">
+<td>7000</td>
+<td>Service Control Manager</td>
+<td>Service failed to start</td>
+</tr>
+<tr class="even">
+<td>7023</td>
+<td>Service Control Manager</td>
+<td>Service terminated with error</td>
+</tr>
+<tr class="odd">
+<td>10010</td>
+<td>DCOM</td>
+<td>DCOM server did not register</td>
+</tr>
+<tr class="even">
+<td>37</td>
+<td>Kernel-Processor-Power</td>
+<td>CPU throttling due to thermal/power</td>
+</tr>
+</tbody>
+</table>
+<h3 id="application-log">Application Log</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Event ID</th>
+<th>Source</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1000</td>
+<td>Application Error</td>
+<td>Application crash</td>
+</tr>
+<tr class="even">
+<td>1001</td>
+<td>Application Crash</td>
+<td>Application crash details</td>
+</tr>
+<tr class="odd">
+<td>1002</td>
+<td>Application Hang</td>
+<td>Application not responding</td>
+</tr>
+<tr class="even">
+<td>11707 / 11724</td>
+<td>MsiInstaller</td>
+<td>MSI install success/failure</td>
+</tr>
+<tr class="odd">
+<td>10</td>
+<td>WinMgmt</td>
+<td>WMI event</td>
+</tr>
+</tbody>
+</table>
+<h3 id="security-log-if-auditing-enabled">Security Log (if auditing
+enabled)</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Event ID</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>4624</td>
+<td>Successful logon</td>
+</tr>
+<tr class="even">
+<td>4625</td>
+<td>Failed logon</td>
+</tr>
+<tr class="odd">
+<td>4634</td>
+<td>Logoff</td>
+</tr>
+<tr class="even">
+<td>4720</td>
+<td>User account created</td>
+</tr>
+<tr class="odd">
+<td>4722</td>
+<td>User account enabled</td>
+</tr>
+<tr class="even">
+<td>4725</td>
+<td>User account disabled</td>
+</tr>
+<tr class="odd">
+<td>4740</td>
+<td>Account lockout</td>
+</tr>
+</tbody>
+</table>
+<h2 id="services-quick-reference">Services Quick Reference</h2>
+<h3 id="common-startup-types-and-what-they-mean">Common Startup Types
+and What They Mean</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Startup Type</th>
+<th>When It Starts</th>
+<th>Equivalent Concept</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Automatic</td>
+<td>At boot, before user login</td>
+<td><code>systemctl enable --now</code></td>
+</tr>
+<tr class="even">
+<td>Automatic (Delayed)</td>
+<td>~2 min after boot</td>
+<td><code>systemd.timer</code> with delay</td>
+</tr>
+<tr class="odd">
+<td>Manual</td>
+<td>When requested by app/service</td>
+<td>Not enabled, but available</td>
+</tr>
+<tr class="even">
+<td>Disabled</td>
+<td>Never</td>
+<td><code>systemctl mask</code></td>
+</tr>
+<tr class="odd">
+<td>Trigger Start</td>
+<td>On specific event (USB insert, network change)</td>
+<td><code>systemd.path</code> or <code>.device</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="service-recovery-options">Service Recovery Options</h3>
+<p>Services can be configured to take actions on failure: 1.
+<strong>First failure</strong>: Restart service, run program, restart
+computer, or take no action 2. <strong>Second failure</strong>: Same
+options 3. <strong>Subsequent failures</strong>: Same options 4.
+<strong>Reset fail count after</strong>: Time period before the failure
+counter resets</p>
+<p>Configure: <code>services.msc</code> &gt; right-click service &gt;
+Recovery tab</p>
+<h2 id="uac-what-triggers-a-prompt">UAC: What Triggers a Prompt</h2>
+<table>
+<thead>
+<tr class="header">
+<th>Action</th>
+<th>UAC Prompt?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Installing software</td>
+<td>Yes</td>
+</tr>
+<tr class="even">
+<td>Changing system settings</td>
+<td>Yes</td>
+</tr>
+<tr class="odd">
+<td>Modifying files in Program Files or Windows directories</td>
+<td>Yes</td>
+</tr>
+<tr class="even">
+<td>Running a .exe as Administrator</td>
+<td>Yes</td>
+</tr>
+<tr class="odd">
+<td>Changing UAC settings itself</td>
+<td>Yes</td>
+</tr>
+<tr class="even">
+<td>Installing a driver</td>
+<td>Yes</td>
+</tr>
+<tr class="odd">
+<td>Adding/removing user accounts</td>
+<td>Yes</td>
+</tr>
+<tr class="even">
+<td>Changing file associations (system-wide)</td>
+<td>Yes</td>
+</tr>
+</tbody>
+</table>
+<h2 id="environment-variables-useful-commands">Environment Variables:
+Useful Commands</h2>
+<h3 id="cmd">CMD</h3>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode cmd"><code class="sourceCode dosbat"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">:: Show all variables</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">:: Show specific variable</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="pp">%</span><span class="va">PATH</span><span class="pp">%</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">:: Set for current session only</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span> <span class="va">MYVAR</span>=value</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co">:: Set persistently </span><span class="er">(</span><span class="co">user scope</span><span class="er">)</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>setx MYVAR <span class="st">&quot;value&quot;</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co">:: Set persistently </span><span class="er">(</span><span class="co">system scope, requires admin</span><span class="er">)</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>setx MYVAR <span class="st">&quot;value&quot;</span> <span class="at">/M</span></span></code></pre></div>
+<h3 id="powershell">PowerShell</h3>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Show all variables</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">Get-ChildItem</span> Env<span class="op">:</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Show specific variable</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="va">$env</span><span class="op">:</span><span class="va">PATH</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Set for current session</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="va">$env</span><span class="op">:</span><span class="va">MYVAR</span> <span class="op">=</span> <span class="st">&quot;value&quot;</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Set persistently (user scope)</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="op">[</span>Environment<span class="op">]::</span>SetEnvironmentVariable<span class="op">(</span><span class="st">&quot;MYVAR&quot;</span><span class="op">,</span> <span class="st">&quot;value&quot;</span><span class="op">,</span> <span class="st">&quot;User&quot;</span><span class="op">)</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Set persistently (system scope)</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="op">[</span>Environment<span class="op">]::</span>SetEnvironmentVariable<span class="op">(</span><span class="st">&quot;MYVAR&quot;</span><span class="op">,</span> <span class="st">&quot;value&quot;</span><span class="op">,</span> <span class="st">&quot;Machine&quot;</span><span class="op">)</span></span></code></pre></div>
+<h2 id="keyboard-shortcuts-support-relevant">Keyboard Shortcuts
+(Support-Relevant)</h2>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Shortcut</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>Win + I</code></td>
+<td>Open Settings</td>
+</tr>
+<tr class="even">
+<td><code>Win + R</code></td>
+<td>Open Run dialog</td>
+</tr>
+<tr class="odd">
+<td><code>Win + E</code></td>
+<td>Open File Explorer</td>
+</tr>
+<tr class="even">
+<td><code>Win + X</code></td>
+<td>Open Quick Link menu (power user menu)</td>
+</tr>
+<tr class="odd">
+<td><code>Win + L</code></td>
+<td>Lock computer</td>
+</tr>
+<tr class="even">
+<td><code>Win + D</code></td>
+<td>Show desktop (minimize all)</td>
+</tr>
+<tr class="odd">
+<td><code>Win + M</code></td>
+<td>Minimize all windows</td>
+</tr>
+<tr class="even">
+<td><code>Ctrl + Shift + Esc</code></td>
+<td>Open Task Manager directly</td>
+</tr>
+<tr class="odd">
+<td><code>Ctrl + Alt + Del</code></td>
+<td>Open security screen (lock, switch user, sign out, Task
+Manager)</td>
+</tr>
+<tr class="even">
+<td><code>Win + Ctrl + Shift + B</code></td>
+<td>Restart graphics driver (useful for display issues)</td>
+</tr>
+<tr class="odd">
+<td><code>Win + V</code></td>
+<td>Open clipboard history</td>
+</tr>
+<tr class="even">
+<td><code>Win + .</code> (period)</td>
+<td>Open emoji/symbol picker</td>
+</tr>
+<tr class="odd">
+<td><code>Shift + right-click</code></td>
+<td>Show full context menu (legacy options)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="registry-key-locations-for-support">Registry: Key Locations for
+Support</h2>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Hive</th>
+<th>Path</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>HKLM</td>
+<td>System-wide startup programs</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>HKCU</td>
+<td>Per-user startup programs</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>HKLM</td>
+<td>Service configuration</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>HKLM</td>
+<td>Installed programs (64-bit)</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>HKLM6432Node</td>
+<td>Installed programs (32-bit)</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>HKCUFolders</td>
+<td>User folder paths</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>HKLMNT</td>
+<td>OS version and build info</td>
+<td></td>
+</tr>
+</tbody>
+</table>

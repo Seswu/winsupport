@@ -1,0 +1,275 @@
+<h1 id="day-crash-plan-windows-11-office-365-support">11-Day Crash Plan:
+Windows 11 &amp; Office 365 Support</h1>
+<h2 id="days-1-2-windows-11-core-orientation">Days 1-2: Windows 11 Core
+Orientation</h2>
+<p><strong>Goal:</strong> Navigate the OS, understand the admin tools,
+map from Linux mental model.</p>
+<ul>
+<li>Windows 11 UI layout, Settings app vs. Control Panel, right-click
+context menus</li>
+<li>File Explorer: special folders, Quick Access, hidden files, file
+extensions, path structure</li>
+<li>Task Manager deep dive: processes, startup apps, performance,
+services tab</li>
+<li>Event Viewer: where logs live, which logs matter
+(<code>Application</code>, <code>System</code>, <code>Setup</code>),
+filtering by level/source</li>
+<li>Services (<code>services.msc</code>): start/stop, startup types,
+dependencies — your equivalent of <code>systemctl</code></li>
+<li>UAC and elevation: why “Run as Administrator” matters, how to spot
+permission issues</li>
+<li><code>whoami /all</code> — understand groups, privileges, integrity
+levels</li>
+<li>Environment variables: System vs. User, <code>PATH</code>
+gotchas</li>
+</ul>
+<p><strong>Hands-on:</strong> Break things in a VM — deny yourself
+permissions on a folder, kill a service, observe what breaks and how it
+shows in logs.</p>
+<hr />
+<h2 id="days-3-4-common-windows-11-issues-troubleshooting">Days 3-4:
+Common Windows 11 Issues &amp; Troubleshooting</h2>
+<p><strong>Goal:</strong> Be able to resolve the most frequent support
+tickets.</p>
+<ul>
+<li><strong>Login/lockout issues:</strong> Credential Manager, cached
+credentials, Windows Hello, smart card login</li>
+<li><strong>Slow performance:</strong> <code>perfmon</code>, Resource
+Monitor, identifying CPU/disk/memory hogs, disabling startup items</li>
+<li><strong>Windows Update:</strong> Update history, troubleshooting,
+<code>SoftwareDistribution</code> folder, known bad updates</li>
+<li><strong>Network issues:</strong> <code>ipconfig</code>,
+<code>ping</code>, <code>nslookup</code>,
+<code>Test-NetConnection</code> (PowerShell), network reset, DNS
+flush</li>
+<li><strong>Driver issues:</strong> Device Manager, driver rollback,
+reading error codes, manufacturer driver vs. Windows Update driver</li>
+<li><strong>BSOD:</strong> Reading minidumps with BlueScreenView or
+WinDbg, safe mode, rollback strategies</li>
+<li><strong>File/permission issues:</strong> NTFS permissions (effective
+permissions tool), ownership, inherited vs. explicit, taking
+ownership</li>
+<li><strong>Printers:</strong> Print queue stuck, spooler restart,
+removing stale printer objects</li>
+</ul>
+<p><strong>Key commands to memorize:</strong></p>
+<pre><code>sfc /scannow
+DISM /Online /Cleanup-Image /RestoreHealth
+gpresult /h report.html
+netsh winsock reset
+ipconfig /flushdns</code></pre>
+<p><strong>Hands-on:</strong> Practice each issue in a VM. Intentionally
+break drivers, corrupt permissions, break networking, then fix.</p>
+<hr />
+<h2 id="days-5-6-office-365-core-what-users-actually-use">Days 5-6:
+Office 365 Core — What Users Actually Use</h2>
+<p><strong>Goal:</strong> Understand and troubleshoot Outlook, OneDrive,
+Teams, and Office apps.</p>
+<ul>
+<li><strong>Outlook:</strong>
+<ul>
+<li>Profile management (<code>Control Panel &gt; Mail</code>)</li>
+<li>OST vs. PST — what they are, where they live, when to rebuild</li>
+<li>Cached Exchange Mode vs. Online Mode</li>
+<li>AutoDiscover process (how Outlook finds the server)</li>
+<li>Common issues: stuck on “connecting,” missing folders, send/receive
+errors, “need password” loop</li>
+</ul></li>
+<li><strong>OneDrive:</strong>
+<ul>
+<li>Sync client behavior, Known Folder Move (Desktop, Documents,
+Pictures)</li>
+<li>Files On-Demand (cloud icon vs. green checkmark vs. syncing
+icon)</li>
+<li>Sync conflicts, file name/length limits, storage quota</li>
+<li>Reset OneDrive: <code>onedrive.exe /reset</code></li>
+<li>Log location:
+<code>%localappdata%\Microsoft\OneDrive\logs</code></li>
+</ul></li>
+<li><strong>Teams:</strong>
+<ul>
+<li>Common issues: audio/video not working, can’t join meetings,
+presence not updating</li>
+<li>Clearing Teams cache</li>
+<li>Web vs. desktop client differences</li>
+</ul></li>
+<li><strong>Office apps (Word, Excel, PowerPoint):</strong>
+<ul>
+<li>Activation/licensing errors</li>
+<li>Office repair (Quick Repair vs. Online Repair)</li>
+<li>Safe mode for Office apps: <code>winword.exe /safe</code></li>
+</ul></li>
+</ul>
+<p><strong>Hands-on:</strong> Create a free M365 Developer tenant. Break
+Outlook profiles, break OneDrive sync, cause activation errors — then
+fix them.</p>
+<hr />
+<h2 id="day-7-new-machine-provisioning-issues">Day 7: New Machine
+Provisioning Issues</h2>
+<p><strong>Goal:</strong> Handle the most common “my new PC isn’t
+working right” scenarios.</p>
+<ul>
+<li><strong>Autopilot / OOBE flow:</strong> What happens during first
+boot, where it commonly fails</li>
+<li><strong>Domain join / Entra ID join failures:</strong> Timing
+issues, DNS misconfiguration, account permissions</li>
+<li><strong>Missing applications:</strong> Apps not deployed yet, Intune
+policy not applied, user not in the right group</li>
+<li><strong>Missing printers/drive mappings:</strong> Group Policy not
+applied, check with <code>gpresult /h report.html</code></li>
+<li><strong>Policy not applying:</strong> <code>gpupdate /force</code>,
+understanding policy precedence and processing order</li>
+<li><strong>BitLocker recovery:</strong> Where to find recovery keys
+(Entra ID / AD), what triggers recovery</li>
+<li><strong>User profile issues:</strong> Temp profile loading, profile
+corruption, roaming profile conflicts</li>
+</ul>
+<p><strong>Checklist for new machine triage:</strong> 1. Is the machine
+domain-joined / Entra-joined? (<code>dsregcmd /status</code>) 2. Are
+policies applied? (<code>gpresult /h report.html</code>) 3. Are expected
+apps installed? (Compare against standard image/software list) 4. Is the
+user logged in with correct account? (<code>whoami</code>) 5. Is
+OneDrive syncing? (Check system tray icon) 6. Is Outlook connected?
+(Check connection status)</p>
+<hr />
+<h2 id="day-8-microsoft-365-admin-licensing">Day 8: Microsoft 365 Admin
+&amp; Licensing</h2>
+<p><strong>Goal:</strong> Know where to look in admin portals and how
+licensing works.</p>
+<ul>
+<li><strong>Microsoft 365 Admin Center</strong>
+(<code>admin.microsoft.com</code>):
+<ul>
+<li>User management: reset passwords, assign licenses, manage
+groups</li>
+<li>Service Health dashboard: is this a widespread outage or just one
+user?</li>
+<li>Message Center: upcoming changes and advisories</li>
+</ul></li>
+<li><strong>Entra Admin Center</strong>
+(<code>entra.microsoft.com</code>):
+<ul>
+<li>Device status, conditional access policies (why a user might be
+blocked)</li>
+<li>Sign-in logs: failed login attempts, MFA failures, conditional
+access denials</li>
+</ul></li>
+<li><strong>Intune Admin Center</strong>
+(<code>intune.microsoft.com</code>):
+<ul>
+<li>Device compliance status, deployed apps, configuration profiles</li>
+<li>Sync device, remote actions (wipe, restart, etc.)</li>
+</ul></li>
+<li><strong>Licensing basics:</strong>
+<ul>
+<li>Common license types (E3, E5, Business Premium, F3) and what each
+includes</li>
+<li>License assignment delays, license conflicts</li>
+<li>Shared Computer Activation (SCA) for shared/RDS environments</li>
+</ul></li>
+</ul>
+<hr />
+<h2 id="day-9-pharma-context-compliance-awareness">Day 9: Pharma Context
+&amp; Compliance Awareness</h2>
+<p><strong>Goal:</strong> Understand the constraints and “why” behind
+pharma IT policies.</p>
+<ul>
+<li><strong>21 CFR Part 11 / GxP:</strong> Why certain apps require
+validation, why you can’t just “install a workaround”</li>
+<li><strong>Change control:</strong> Why some fixes require tickets,
+approval, and documentation before implementation</li>
+<li><strong>Audit trails:</strong> Everything you do may be reviewed —
+document your troubleshooting steps</li>
+<li><strong>Data handling:</strong> Don’t access user data without
+authorization, especially in research/lab contexts</li>
+<li><strong>Standard images:</strong> Machines are built from validated
+images — deviations are not allowed without approval</li>
+<li><strong>Escalation boundaries:</strong> Know when to escalate
+(security events, GxP system issues, suspected data breaches)</li>
+</ul>
+<hr />
+<h2 id="day-10-diagnostic-tools-reference-building">Day 10: Diagnostic
+Tools &amp; Reference Building</h2>
+<p><strong>Goal:</strong> Build your personal quick-reference cheat
+sheet.</p>
+<ul>
+<li>Build a one-page reference with:
+<ul>
+<li>Key PowerShell commands for admin tasks</li>
+<li>Log file locations for Windows, Office, OneDrive, Teams</li>
+<li>Common error codes and their meanings</li>
+<li>Quick diagnostic flowcharts for the 15 common issues</li>
+</ul></li>
+<li>Set up browser bookmarks:
+<ul>
+<li>Microsoft Learn docs</li>
+<li>Windows Release Health page</li>
+<li>M365 Service Health</li>
+<li>Tech Community forums</li>
+<li>Internal runbooks/SOPs (ask your team for these)</li>
+</ul></li>
+<li>Learn where to find info inside Windows:
+<ul>
+<li><code>Settings &gt; System &gt; About</code> — OS version, build
+number</li>
+<li><code>winver</code> — quick version check</li>
+<li><code>msinfo32</code> — detailed system info</li>
+<li><code>dxdiag</code> — display/audio driver info</li>
+</ul></li>
+</ul>
+<hr />
+<h2 id="day-11-shadow-scenario-practice">Day 11: Shadow &amp; Scenario
+Practice</h2>
+<p><strong>Goal:</strong> Apply knowledge in realistic scenarios.</p>
+<ul>
+<li>Shadow an experienced supporter for a half-day if possible</li>
+<li>Walk through the 15 common issues with a lab machine, timing
+yourself</li>
+<li>Practice explaining solutions in non-technical terms (end users
+don’t know what DNS is)</li>
+<li>Draft your first-contact scripts for the top 5 issues:
+<ul>
+<li>“My PC won’t let me log in”</li>
+<li>“Outlook won’t connect”</li>
+<li>“My new computer is missing [application]”</li>
+<li>“OneDrive isn’t syncing”</li>
+<li>“My computer is really slow”</li>
+</ul></li>
+</ul>
+<hr />
+<h2 id="daily-time-allocation-suggested">Daily Time Allocation
+(suggested)</h2>
+<table>
+<thead>
+<tr class="header">
+<th>Activity</th>
+<th>Time</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Reading/studying docs</td>
+<td>2 hours</td>
+</tr>
+<tr class="even">
+<td>Hands-on lab practice</td>
+<td>2 hours</td>
+</tr>
+<tr class="odd">
+<td>Building reference notes</td>
+<td>1 hour</td>
+</tr>
+<tr class="even">
+<td><strong>Total</strong></td>
+<td><strong>~5 hours/day</strong></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="critical-unknowns-to-resolve-immediately">Critical Unknowns to
+Resolve Immediately</h2>
+<p>Ask your team on Day 1: 1. What device management stack is used?
+(Intune, SCCM, hybrid?) 2. Where are the existing runbooks/SOPs? 3. What
+is the new machine provisioning process? 4. What endpoint security is
+deployed? 5. What ticketing system is used, and is there a knowledge
+base?</p>
