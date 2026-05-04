@@ -32,6 +32,14 @@ Control Panel/System&Security/Power Options
 # Will fail without sufficient (administrative) privileges, but is fun as overly convoluter 'dir'
  Get-ChildItem "c:\windows\system32\config" -force | Select-object name
 
+# Gives nice status message on specific service when run in power-shell w admin privs
+# No time to look into precise command descriptions right now here end-of-day
+ get-service -name spooler | format-list *
+
+* Doing
+01-Ex5-Last on powershell spooling
+file:///home/uw/solo/repositories/public/dozupport/learning-plan/01-windows-11-core-orientation/hands-on-exercises.md.html
+
 * Administration
    
 ** Task Manager
@@ -64,5 +72,6 @@ Også findbar via start-menu; Event Viewer muligvis Event Log
   - 'Service Control'
   - A command to stop, start and query services
 - net
-  - Not sure about name or original purpose
   - Stops and starts (some) services
+  - so why is it named that anyway?
+  - what is its original purpose?
