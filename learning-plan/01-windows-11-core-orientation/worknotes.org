@@ -1,0 +1,68 @@
+* Where Stuff Is
+
+** Display resolution
+
+Settings/System/Display
+
+** Install/Remote
+
+Settings/Apps/Installed-apps
+Control Panel/Programs/ProgramsandFeatures
+
+** Network Adapter Properties
+
+Settings/Network&Internet/Ethernet|Wifi|Advanced: Software properties
+Control Panel/Network&Internet/Network&Sharing/Change Network Adapter Settings: Netværksforbindelser
+Control Panel/Hardware&Sound/Devices&Printers/Device Manager/Network Adapters
+
+** User Accounts
+
+Settings/Accounts
+Control Panel/User Accounts/User Accounts
+
+** Power options
+
+Settings/System/Power&Battery
+Control Panel/System&Security/Power Options
+
+* Haxxor
+
+** Oneliners
+
+# Will fail without sufficient (administrative) privileges, but is fun as overly convoluter 'dir'
+ Get-ChildItem "c:\windows\system32\config" -force | Select-object name
+
+* Administration
+   
+** Task Manager
+
+- Ctrl-Shift-Escape
+
+Processes, Performance og Details er gode tabs; PIDs kan ses og exe-paths også.
+
+** Event Viewer
+
+eventvwr.msc
+Også i control panel somewhere.
+Også findbar via start-menu; Event Viewer muligvis Event Log
+
+- Systemlog
+  - filtrering via højreklik på den enkelte log
+    - til venstre eg 'Application' og ikke som man intuitivt skulle tro via klik på kolonner
+    - som dog kan sortere på enkeltværdi/-kolonne.
+- Customview
+  - Eg på id 1000 or 1002, crashing and hanging
+- Applications and Services/Microsoft/Windows
+  - Produkt-specifikke logs
+
+** Services
+
+- services.msc
+  - start/stop af services
+  - dependencies hierarki ml services
+- sc
+  - 'Service Control'
+  - A command to stop, start and query services
+- net
+  - Not sure about name or original purpose
+  - Stops and starts (some) services
