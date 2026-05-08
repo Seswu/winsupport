@@ -34,7 +34,13 @@ Control Panel/System&Security/Power Options
 
 # Gives nice status message on specific service when run in power-shell w admin privs
 # No time to look into precise command descriptions right now here end-of-day
- get-service -name spooler | format-list *
+get-service -name spooler | format-list *
+
+# Tells current security level aka 'integrity level'
+whoami /all
+
+# Detailed access information
+[security.principal.windowsidentity]::getcurrent()  | format-list *
 
 * Doing
 01-Ex5-Last on powershell spooling
